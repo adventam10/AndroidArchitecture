@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AndroidArchitecture</string>
+
+    <!--PrefectureListActivity-->
+    <string name="btn_favorite">お気に入りのみ表示</string>
+    <string name="btn_area_filter">地方で絞り込み</string>
+    <string name="text_no_data">該当データがありません</string>
+
+</resources>
