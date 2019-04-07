@@ -18,6 +18,8 @@ import com.am10.androidarchitecture.Response.Weather;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    public static final String STATE_WEATHER = "STATE_WEATHER";
+    public static final String STATE_CITY_DATA = "STATE_CITY_DATA";
     public static final String EXTRA_WEATHER = "EXTRA_WEATHER";
     public static final String EXTRA_CITY_DATA = "EXTRA_CITY_DATA";
 
@@ -52,9 +54,14 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        Intent intent = getIntent();
-        mWeather = (Weather) intent.getSerializableExtra(EXTRA_WEATHER);
-        mCityData = (CityData) intent.getSerializableExtra(EXTRA_CITY_DATA);
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            mWeather = (Weather) intent.getSerializableExtra(EXTRA_WEATHER);
+            mCityData = (CityData) intent.getSerializableExtra(EXTRA_CITY_DATA);
+        } else {
+            mWeather = (Weather) savedInstanceState.getSerializable(STATE_WEATHER);
+            mCityData = (CityData) savedInstanceState.getSerializable(STATE_CITY_DATA);
+        }
 
         // アクションバーに前画面に戻る機能をつける
         ActionBar actionBar = getSupportActionBar();
@@ -86,18 +93,21 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(STATE_CITY_DATA, mCityData);
+        savedInstanceState.putSerializable(STATE_WEATHER, mWeather);
+    }
+
+    @Override
     public void finish() {
         super.finish();
-
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-//        final String idString = "@*android:drawable/ic_menu_refresh";
-//        final int id = getResources().getIdentifier(idString, null, null);
-//        menu.findItem(R.id.action_refresh).setIcon(id);
         return true;
     }
 

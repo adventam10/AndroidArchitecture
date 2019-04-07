@@ -35,6 +35,12 @@ import java.util.Set;
 
 public class PrefectureListActivity extends AppCompatActivity implements PrefectureListRecyclerAdapter.OnRecyclerListener {
 
+    public static final String STATE_CITY_DATA_LIST = "STATE_CITY_DATA_LIST";
+    public static final String STATE_TABLE_DATA_LIST = "STATE_TABLE_DATA_LIST";
+    public static final String STATE_SELECTED_CITY_DATA = "STATE_SELECTED_CITY_DATA";
+    public static final String STATE_FAVORITE_CITY_ID_LIST = "STATE_FAVORITE_CITY_ID_LIST";
+    public static final String STATE_AREA_FILTER_LIST = "STATE_AREA_FILTER_LIST";
+    public static final String STATE_IS_FAVORITE_CHECKED = "STATE_IS_FAVORITE_CHECKED";
     public static final String PREF_KEY_FAVORITE = "PREF_KEY_FAVORITE";
     private RecyclerView mRecyclerView;
     private TextView mNoDataTextView;
@@ -55,16 +61,26 @@ public class PrefectureListActivity extends AppCompatActivity implements Prefect
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("地域");
 
-        String cityDataJson = readJsonFile(this, "CityData.json");
-        Gson gson = new Gson();
-        CityDataList cityDataList = gson.fromJson(cityDataJson, CityDataList.class);
+        if (savedInstanceState == null) {
+            String cityDataJson = readJsonFile(this, "CityData.json");
+            Gson gson = new Gson();
+            CityDataList cityDataList = gson.fromJson(cityDataJson, CityDataList.class);
+            mFavoriteCityIdList = loadFavoriteCityIdList(this);
+            mCityDataList = new ArrayList<>(Arrays.asList(cityDataList.getCityDataList()));
+            mTableDataList = new ArrayList<>(mCityDataList);
+        } else {
+            mCityDataList = (ArrayList<CityData>) savedInstanceState.getSerializable(STATE_CITY_DATA_LIST);
+            mTableDataList = (ArrayList<CityData>) savedInstanceState.getSerializable(STATE_TABLE_DATA_LIST);
+            mSelectedCityData = (CityData) savedInstanceState.getSerializable(STATE_SELECTED_CITY_DATA);
+            mFavoriteCityIdList = (ArrayList<String>) savedInstanceState.getSerializable(STATE_FAVORITE_CITY_ID_LIST);
+            mAreaFilterList = (ArrayList<AreaFilterListAdapter.Area>) savedInstanceState.getSerializable(STATE_AREA_FILTER_LIST);
+            mIsFavoriteChecked = savedInstanceState.getBoolean(STATE_IS_FAVORITE_CHECKED);
+        }
+
         mNoDataTextView = findViewById(R.id.textView_no_data);
         mNoDataTextView.setVisibility(View.GONE);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mFavoriteCityIdList = loadFavoriteCityIdList(this);
-        mCityDataList = new ArrayList<>(Arrays.asList(cityDataList.getCityDataList()));
-        mTableDataList = new ArrayList<>(mCityDataList);
         mAdapter = new PrefectureListRecyclerAdapter(this, mTableDataList, this);
         mAdapter.setFavoriteCityIdList(mFavoriteCityIdList);
         mRecyclerView.setAdapter(mAdapter);
@@ -96,6 +112,17 @@ public class PrefectureListActivity extends AppCompatActivity implements Prefect
     protected void onResume() {
         super.onResume();
         mAdapter.refresh();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(STATE_CITY_DATA_LIST, mCityDataList);
+        savedInstanceState.putSerializable(STATE_TABLE_DATA_LIST, mTableDataList);
+        savedInstanceState.putSerializable(STATE_SELECTED_CITY_DATA, mSelectedCityData);
+        savedInstanceState.putSerializable(STATE_FAVORITE_CITY_ID_LIST, mFavoriteCityIdList);
+        savedInstanceState.putSerializable(STATE_AREA_FILTER_LIST, mAreaFilterList);
+        savedInstanceState.putBoolean(STATE_IS_FAVORITE_CHECKED, mIsFavoriteChecked);
     }
 
     @Override
