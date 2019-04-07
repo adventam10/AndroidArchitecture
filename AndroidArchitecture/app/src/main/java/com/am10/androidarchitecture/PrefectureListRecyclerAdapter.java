@@ -21,10 +21,9 @@ public class PrefectureListRecyclerAdapter extends RecyclerView.Adapter<Prefectu
     private int mSelectedRow = -1;
     private ArrayList<String> mFavoriteCityIdList;
 
-    public PrefectureListRecyclerAdapter(Context context, ArrayList<CityData> data, OnRecyclerListener listener) {
+    public PrefectureListRecyclerAdapter(Context context, OnRecyclerListener listener) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
-        mCityDataList = data;
         mListener = listener;
     }
 

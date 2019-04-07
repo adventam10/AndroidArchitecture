@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView_subdate"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:gravity="bottom"
+        android:text="今日" />
+    <TextView
+        android:id="@+id/textView_date"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:gravity="bottom"
+        android:text="2018/12/12(木)" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        app:srcCompat="@drawable/icon_no_image" />
+    <TextView
+        android:id="@+id/textView_telop"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:gravity="top"
+        android:text="晴れ" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textView_max_celsius_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:text="最高"
+            android:gravity="top"
+            android:textColor="#ff0000"/>
+        <TextView
+            android:id="@+id/textView_max_celsius"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:text="30度"
+            android:gravity="top"
+            android:textColor="#ff0000"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textView_min_celsius_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:text="最低"
+            android:gravity="top"
+            android:textColor="#000ff0"/>
+        <TextView
+            android:id="@+id/textView_min_celsius"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:text="15度"
+            android:gravity="top"
+            android:textColor="#000ff0"/>
+    </LinearLayout>
+</LinearLayout>

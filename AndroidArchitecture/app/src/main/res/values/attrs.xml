@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WeatherCustomView">
+        <attr name="fontSize" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="weatherCustomViewStyle" format="reference" />
+    </declare-styleable>
+</resources>
