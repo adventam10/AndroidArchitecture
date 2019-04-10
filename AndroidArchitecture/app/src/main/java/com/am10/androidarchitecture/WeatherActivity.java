@@ -126,6 +126,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void displayForecasts(Forecast[] forecasts) {
+        displayTodayForecast(null);
+        displayTomorrowForecast(null);
+        displayDayAfterTomorrowForecast(null);
         int index = 0;
         for (Forecast forecast : forecasts) {
             if (index == 0) {
@@ -140,27 +143,45 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void displayTodayForecast(Forecast forecast) {
-        mTodayDateTextView.setText(forecast.getDate());
-        mTodaySubdateTextView.setText(forecast.getDateLabel());
-        mTodayTelopTextView.setText(forecast.getTelop());
+        if (forecast == null) {
+            mTodayDateTextView.setText("");
+            mTodaySubdateTextView.setText("");
+            mTodayTelopTextView.setText("");
+        } else {
+            mTodayDateTextView.setText(forecast.getDate());
+            mTodaySubdateTextView.setText(forecast.getDateLabel());
+            mTodayTelopTextView.setText(forecast.getTelop());
+        }
         mTodayMaxCelsiusTextView.setText(getMaxCelsiusFromForecast(forecast));
         mTodayMinCelsiusTextView.setText(getMinCelsiusFromForecast(forecast));
         displayImageFromForecast(forecast, mTodayImageView);
     }
 
     private void displayTomorrowForecast(Forecast forecast) {
-        mTomorrowDateTextView.setText(forecast.getDate());
-        mTomorrowSubdateTextView.setText(forecast.getDateLabel());
-        mTomorrowTelopTextView.setText(forecast.getTelop());
+        if (forecast == null) {
+            mTomorrowDateTextView.setText("");
+            mTomorrowSubdateTextView.setText("");
+            mTomorrowTelopTextView.setText("");
+        } else {
+            mTomorrowDateTextView.setText(forecast.getDate());
+            mTomorrowSubdateTextView.setText(forecast.getDateLabel());
+            mTomorrowTelopTextView.setText(forecast.getTelop());
+        }
         mTomorrowMaxCelsiusTextView.setText(getMaxCelsiusFromForecast(forecast));
         mTomorrowMinCelsiusTextView.setText(getMinCelsiusFromForecast(forecast));
         displayImageFromForecast(forecast, mTomorrowImageView);
     }
 
     private void displayDayAfterTomorrowForecast(Forecast forecast) {
-        mDayAfterTomorrowDateTextView.setText(forecast.getDate());
-        mDayAfterTomorrowSubdateTextView.setText(forecast.getDateLabel());
-        mDayAfterTomorrowTelopTextView.setText(forecast.getTelop());
+        if (forecast == null) {
+            mDayAfterTomorrowDateTextView.setText("");
+            mDayAfterTomorrowSubdateTextView.setText("");
+            mDayAfterTomorrowTelopTextView.setText("");
+        } else {
+            mDayAfterTomorrowDateTextView.setText(forecast.getDate());
+            mDayAfterTomorrowSubdateTextView.setText(forecast.getDateLabel());
+            mDayAfterTomorrowTelopTextView.setText(forecast.getTelop());
+        }
         mDayAfterTomorrowMaxCelsiusTextView.setText(getMaxCelsiusFromForecast(forecast));
         mDayAfterTomorrowMinCelsiusTextView.setText(getMinCelsiusFromForecast(forecast));
         displayImageFromForecast(forecast, mDayAfterTomorrowImageView);
